@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(39, 38, 38);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 99%;
+    height: 99%;
+}
+
+h1 {
+    font-family: 'Inter', sans-serif; 
+    color: whitesmoke;
+    font-size: 100px;
+}
+
+#main {
+    align-self: center;
+    background-color: whitesmoke;
+    display: flex;
+    flex-wrap: wrap;
+    height: 800px;
+    width: 1000px;
+}
+
+.simple-div {
+    flex: 1 1 6%;
+    height: 6%;
+    border: solid 1px whitesmoke;
+    background-color: rgb(144, 142, 146);
+}
+
+.hover {
+    background-color: yellow;
+    /*transition: background-color 1s;*/
+}
+
+@keyframes fading {
+    0% {
+        background-color: yellow;        
+    } 
+    25% {
+        background-color: rgb(255, 255, 100);
+    }
+    50% {
+        background-color: rgb(255, 255, 150);
+    } 
+    75% {
+        background-color: white;
+    }
+    100% {
+        background-color: rgb(144, 142, 146);
+    }
+}
+
+.fade {
+    animation: fading 2s;
+}
