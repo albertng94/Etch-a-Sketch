@@ -1,18 +1,24 @@
 // Const mainDiv is created as a reference for the Etch-a-Skecth main div, which 
 // will include the divs inside.
+// Const textInput and submitButton are created as reference for the form and button.
+// Var numOfDivs holds the initial number of cells the grid must have.
 
 const mainDiv = document.getElementById("main");
+const textInput = document.getElementById("text-input");
+const submitButton = document.getElementById("button");
+let numOfDivs = 256;
 
-// Function createGrid is executed.
+// Function createGrid and resizeGrid are executed.
 
 createGrid();
+resizeGrid();
 
-// Const Divs is created as a reference for the divs created under the main did 
-// (of class "simple-div"). This variable must be created after the createGrid
-// function has been executed, as the grid needs to be created before its
-// elements can be stored in a variable.
+// Var Divs is created as a reference for the divs created under the main div 
+// by the createGrid() or resizeGrid() functions. This Var is created after 
+// those functions have been executed, as otherwise the grid will not be yet
+// created in the DOM.
 
-const Divs = document.querySelectorAll(".simple-div");
+let Divs = document.querySelectorAll(".simple-div");
 
 // Function hoverGrid is executed.
 
@@ -24,10 +30,50 @@ hoverGrid();
 // grid as asked initially in the project instructions.
 
 function createGrid() {
-    for (let i = 0; i < 256; i++) {
+    for (let i = 0; i < numOfDivs; i++) {
         const divElement = document.createElement("div");
         divElement.classList.add("simple-div");
         mainDiv.appendChild(divElement);
+    }
+}
+
+// Function resizeGrid is executed whenever the user clicks the button to resize
+// the grid.
+// It executes function clearGrid to delete all the grid divs that were already 
+// attached to the main div.
+// If the value inputed in the text form is not 16, then it adds the attributes 
+// "gridTemplateColumns" and "gridTemplateRows" according to the textInput value,
+// so that the grid tracks are as the user wanted, then updates the value of Var
+// numOfDivs to match the total of cells needed (square of "textInput" value), and 
+// finally executes the same for loop as in function createGrid, creating the new
+// updated grid.
+// An else statement is created contemplating the possibility that the user inputs
+// the number "16" (initial value). It executes function createGrid again.
+
+function resizeGrid() {
+    submitButton.addEventListener("click", () => {
+        clearGrid();
+        if (textInput.value !== "16") {
+            mainDiv.style.gridTemplateColumns = `repeat(${textInput.value}, 1fr)`;
+            mainDiv.style.gridTemplateRows = `repeat(${textInput.value}, 1fr)`;
+            numOfDivs = Number(textInput.value*textInput.value);
+            for (let i = 0; i < numOfDivs; i++) {
+                const divElement = document.createElement("div");
+                divElement.classList.add("simple-div");
+                mainDiv.appendChild(divElement);
+            } 
+        } else {
+            createGrid();
+        }
+    });
+}
+
+// Function clearGrid clears the Grid by deleting all divs previoulsy attached
+// to the main div.
+
+function clearGrid() {
+    while (mainDiv.firstChild) {
+        mainDiv.removeChild(mainDiv.firstChild);
     }
 }
 

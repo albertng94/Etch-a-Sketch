@@ -14,25 +14,46 @@ h1 {
     font-size: 100px;
 }
 
+.suggestion {
+    font-family: 'Inter', sans-serif; 
+    color: whitesmoke;
+    font-style: italic;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.input {
+    margin-bottom: 50px;
+}
+
+#text-input {
+    width: 500px;
+    height: 20px;
+}
+
+#button {
+    width: 100px;
+    height: 26px;
+    cursor: pointer;
+}
+
 #main {
     align-self: center;
     background-color: whitesmoke;
-    display: flex;
-    flex-wrap: wrap;
-    height: 800px;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    height: 1000px;
     width: 1000px;
 }
 
 .simple-div {
-    flex: 1 1 6%;
-    height: 6%;
-    border: solid 1px whitesmoke;
+    outline: solid 1px whitesmoke;
     background-color: rgb(144, 142, 146);
 }
 
 .hover {
     background-color: yellow;
-    /*transition: background-color 1s;*/
 }
 
 @keyframes fading {
