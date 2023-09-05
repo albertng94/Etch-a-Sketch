@@ -23,18 +23,35 @@ h1 {
 }
 
 .input {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
+}
+
+#form {
+    display: flex;
+    gap: 5px;
 }
 
 #text-input {
     width: 500px;
     height: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
 }
 
 #button {
+    justify-self: flex-end;
     width: 100px;
     height: 26px;
     cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#button:hover {
+    background-color: rgb(39, 38, 38);
+    color: whitesmoke;
+    outline: solid 2px whitesmoke;
 }
 
 #main {
@@ -43,8 +60,8 @@ h1 {
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
-    height: 1000px;
-    width: 1000px;
+    height: 800px;
+    width: 800px;
 }
 
 .simple-div {
