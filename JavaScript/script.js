@@ -2,11 +2,13 @@
 // will include the divs inside.
 // Const textInput and submitButton are created as reference for the form and button.
 // Var numOfDivs holds the initial number of cells the grid must have.
+// Var inputRegEx stores a RegEx that cuts form's user input to 4-100.
 
 const mainDiv = document.getElementById("main");
 const textInput = document.getElementById("text-input");
 const submitButton = document.getElementById("button");
 let numOfDivs = 256;
+let inputRegEx = new RegExp(/^([4-9]|[1-9][0-9]|100)$/);
 
 // Function createGrid and resizeGrid are executed.
 
@@ -39,36 +41,43 @@ function createGrid() {
 
 // Function resizeGrid is executed whenever the user clicks the button to resize
 // the grid.
-// It executes function clearGrid to delete all the grid divs that were already 
+// It contains an if .. else statement testing inputRegEx vs the value inputed
+// by the user. If its true, then:
+// --> It executes function clearGrid to delete all the grid divs that were already 
 // attached to the main div.
-// If the value inputed in the text form is not 16, then it adds the attributes 
+// --> If the value inputed in the text form is not 16, then it adds the attributes 
 // "gridTemplateColumns" and "gridTemplateRows" according to the textInput value,
 // so that the grid tracks are as the user wanted, then updates the value of Var
 // numOfDivs to match the total of cells needed (square of "textInput" value), and 
 // executes the same for loop as in function createGrid, creating the new updated grid.
-// An else statement is created contemplating the possibility that the user inputs
+// --> An else statement is created contemplating the possibility that the user inputs
 // the number "16" (initial value). It executes function createGrid again.
-// For both cases, the last step is to update Var Divs (so the new grid is stored) and
+// --> For both cases, the last step is to update Var Divs (so the new grid is stored) and
 // execute function hoverGrid (so it can apply to the new grid).
+// If the RegEx test fails, then it alerts the user giving info about what data it requires.
 
 function resizeGrid() {
     submitButton.addEventListener("click", () => {
-        clearGrid();
-        if (textInput.value !== "16") {
-            mainDiv.style.gridTemplateColumns = `repeat(${textInput.value}, 1fr)`;
-            mainDiv.style.gridTemplateRows = `repeat(${textInput.value}, 1fr)`;
-            numOfDivs = Number(textInput.value*textInput.value);
-            for (let i = 0; i < numOfDivs; i++) {
-                const divElement = document.createElement("div");
-                divElement.classList.add("simple-div");
-                mainDiv.appendChild(divElement);
-            } 
-            Divs = document.querySelectorAll(".simple-div");
-            hoverGrid();
+        if (inputRegEx.test(textInput.value)){
+            clearGrid();
+            if (textInput.value !== "16") {
+                mainDiv.style.gridTemplateColumns = `repeat(${textInput.value}, 1fr)`;
+                mainDiv.style.gridTemplateRows = `repeat(${textInput.value}, 1fr)`;
+                numOfDivs = Number(textInput.value*textInput.value);
+                for (let i = 0; i < numOfDivs; i++) {
+                    const divElement = document.createElement("div");
+                    divElement.classList.add("simple-div");
+                    mainDiv.appendChild(divElement);
+                } 
+                Divs = document.querySelectorAll(".simple-div");
+                hoverGrid();
+            } else {
+                createGrid();
+                Divs = document.querySelectorAll(".simple-div");
+                hoverGrid();
+            }
         } else {
-            createGrid();
-            Divs = document.querySelectorAll(".simple-div");
-            hoverGrid();
+            alert("Please input a number between 4 and 100.");
         }
     });
 }
@@ -104,19 +113,3 @@ function hoverGrid() {
         });
     }
 }
-
-// function hoverGrid() {
-//     mainDiv.addEventListener("mouseover", (event) => {
-//         if (event.target.classList.contains("simple-div")) {
-//             event.target.classList.remove("fade");
-//             event.target.classList.add("hover");
-//         }
-//     });
-
-//     mainDiv.addEventListener("mouseout", (event) => {
-//         if (event.target.classList.contains("simple-div")) {
-//             event.target.classList.remove("hover");
-//             event.target.classList.add("fade");
-//         }
-//     });
-// }
