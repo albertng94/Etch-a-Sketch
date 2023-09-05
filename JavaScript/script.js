@@ -45,10 +45,11 @@ function createGrid() {
 // "gridTemplateColumns" and "gridTemplateRows" according to the textInput value,
 // so that the grid tracks are as the user wanted, then updates the value of Var
 // numOfDivs to match the total of cells needed (square of "textInput" value), and 
-// finally executes the same for loop as in function createGrid, creating the new
-// updated grid.
+// executes the same for loop as in function createGrid, creating the new updated grid.
 // An else statement is created contemplating the possibility that the user inputs
 // the number "16" (initial value). It executes function createGrid again.
+// For both cases, the last step is to update Var Divs (so the new grid is stored) and
+// execute function hoverGrid (so it can apply to the new grid).
 
 function resizeGrid() {
     submitButton.addEventListener("click", () => {
@@ -62,8 +63,12 @@ function resizeGrid() {
                 divElement.classList.add("simple-div");
                 mainDiv.appendChild(divElement);
             } 
+            Divs = document.querySelectorAll(".simple-div");
+            hoverGrid();
         } else {
             createGrid();
+            Divs = document.querySelectorAll(".simple-div");
+            hoverGrid();
         }
     });
 }
@@ -99,3 +104,19 @@ function hoverGrid() {
         });
     }
 }
+
+// function hoverGrid() {
+//     mainDiv.addEventListener("mouseover", (event) => {
+//         if (event.target.classList.contains("simple-div")) {
+//             event.target.classList.remove("fade");
+//             event.target.classList.add("hover");
+//         }
+//     });
+
+//     mainDiv.addEventListener("mouseout", (event) => {
+//         if (event.target.classList.contains("simple-div")) {
+//             event.target.classList.remove("hover");
+//             event.target.classList.add("fade");
+//         }
+//     });
+// }
